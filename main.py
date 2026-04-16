@@ -31,6 +31,7 @@ def delete_book(index):
     books = load_books()
     if 0 < index <= len(books):
         books.pop(index - 1)
+        print("Книга удалена.")
         save_books(books)
     else:
         print("Неверный номер")
