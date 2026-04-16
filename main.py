@@ -16,6 +16,7 @@ def save_books(books):
 def add_book(title, author, rating):
     books = load_books()
     books.append({"title": title, "author": author, "rating": rating})
+    print("Книга успешно добавлена!")
     save_books(books)
 
 def list_books():
