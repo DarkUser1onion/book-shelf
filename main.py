@@ -1,0 +1,62 @@
+import json
+import os
+
+DATA_FILE = "books.json"
+
+def load_books():
+    if not os.path.exists(DATA_FILE):
+        return []
+    with open(DATA_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def save_books(books):
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(books, f, ensure_ascii=False, indent=2)
+
+def add_book(title, author, rating):
+    books = load_books()
+    books.append({"title": title, "author": author, "rating": rating})
+    save_books(books)
+
+def list_books():
+    books = load_books()
+    if not books:
+        print("Список пуст")
+        return
+    for i, book in enumerate(books, 1):
+        print(f"{i}. {book['title']} — {book['author']} (оценка: {book['rating']})")
+
+def delete_book(index):
+    books = load_books()
+    if 0 < index <= len(books):
+        books.pop(index - 1)
+        save_books(books)
+    else:
+        print("Неверный номер")
+
+def main():
+    while True:
+        print("\n1. Добавить книгу")
+        print("2. Показать список")
+        print("3. Удалить книгу")
+        print("4. Выход")
+        choice = input("Выберите действие: ")
+        if choice == "1":
+            title = input("Название: ")
+            author = input("Автор: ")
+            rating = input("Оценка (1-5): ")
+            add_book(title, author, rating)
+        elif choice == "2":
+            list_books()
+        elif choice == "3":
+            list_books()
+            try:
+                idx = int(input("Номер для удаления: "))
+                delete_book(idx)
+            except ValueError:
+                print("Введите число")
+        elif choice == "4":
+            break
+
+if __name__ == "__main__":
+    main()
