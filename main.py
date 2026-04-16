@@ -24,8 +24,8 @@ def list_books():
     if not books:
         print("Список пуст")
         return
-    for i, book in enumerate(books, 1):
-        print(f"{i}. {book['title']} — {book['author']} (оценка: {book['rating']})")
+    for i, book in enumerate(books, 1): # микро обнова
+            print(f"{i}. {book['title']} — {book['author']} (оценка: {book['rating']})")
 
 def delete_book(index):
     books = load_books()
