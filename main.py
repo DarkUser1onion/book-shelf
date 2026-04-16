@@ -48,12 +48,29 @@ def delete_book(index):
     else:
         print("Неверный номер")
 
+def edit_book(index):
+    books = load_books()
+    if 0 < index <= len(books):
+        book = books[index - 1]
+        print(f"Редактирование: {book['title']} — {book['author']}")
+        title = input(f"Новое название (Enter чтобы оставить '{book['title']}'): ")
+        author = input(f"Новый автор (Enter чтобы оставить '{book['author']}'): ")
+        rating = input(f"Новая оценка (Enter чтобы оставить '{book['rating']}'): ")
+        if title: book['title'] = title
+        if author: book['author'] = author
+        if rating: book['rating'] = rating
+        save_books(books)
+        print("Книга обновлена")
+    else:
+        print("Неверный номер")
+
 def main():
     while True:
         print("\n1. Добавить книгу")
         print("2. Показать список")
         print("3. Удалить книгу")
-        print("4. Выход")
+        print("4. Редактировать книгу")
+        print("5. Выход")
         choice = input("Выберите действие: ")
         if choice == "1":
             title = input("Название: ")
@@ -70,6 +87,13 @@ def main():
             except ValueError:
                 print("Введите число")
         elif choice == "4":
+            list_books()
+            try:
+                idx = int(input("Номер для редактирования: "))
+                edit_book(idx)
+            except ValueError:
+                print("Введите число")
+        elif choice == "5":
             break
 
 if __name__ == "__main__":
