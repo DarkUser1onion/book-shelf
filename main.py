@@ -15,10 +15,21 @@ def save_books(books):
         json.dump(books, f, ensure_ascii=False, indent=2)
 
 def add_book(title, author, rating):
+    if not title or not author or not rating:
+        print("Ошибка: все поля должны быть заполнены")
+        return
+    try:
+        r = int(rating)
+        if r < 1 or r > 5:
+            print("Ошибка: оценка должна быть от 1 до 5")
+            return
+    except ValueError:
+        print("Ошибка: оценка должна быть числом")
+        return
     books = load_books()
     books.append({"title": title, "author": author, "rating": rating})
-    print("Книга успешно добавлена!")
     save_books(books)
+    print("Книга добавлена")
 
 def list_books():
     books = load_books()
