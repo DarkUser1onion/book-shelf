@@ -5,6 +5,7 @@ DATA_FILE = "books.json"
 
 def load_books():
     if not os.path.exists(DATA_FILE):
+        print("Файл данных не найден, создана пустая коллекция.")
         return []
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
